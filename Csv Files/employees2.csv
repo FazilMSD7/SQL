@@ -1,0 +1,11 @@
+EmployeeID,FirstName,LastName,Gender,Department,Salary,DateOfBirth
+101,Michael,Thompson,M,Finance,75000,22-03-1985
+102,Sarah,Davis,F,Operations,68000,15-07-1990
+103,James,Wilson,M,Marketing,72000,09-11-1982
+3,Alice,Johnson,F,HR,77000,29-05-1986
+4,Bob,Brown,M,IT,70000,30-09-1992
+5,Carol,White,F,Sales,69000,20-01-1991
+107,William,Moore,M,HR,71000,12-12-1984
+108,Sophia,Clark,F,Marketing,73000,08-10-1989
+109,Benjamin,Lewis,M,IT,72000,25-06-1993
+110,Ava,Scott,F,HR,70000,17-04-1988

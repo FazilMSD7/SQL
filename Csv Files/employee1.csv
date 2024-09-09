@@ -1,0 +1,11 @@
+EmployeeID,FirstName,LastName,Gender,Department
+1,John,Doe,M,Sales
+2,Jane,Smith,F,Marketing
+3,Alice,Johnson,F,HR
+4,Bob,Brown,M,IT
+5,Carol,White,F,Sales
+6,David,Black,M,Marketing
+7,Emma,Green,F,IT
+8,Frank,Harris,M,HR
+9,Grace,Clark,F,Sales
+10,Henry,Lewis,M,Marketing
