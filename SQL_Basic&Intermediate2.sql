@@ -58,6 +58,7 @@ select firstname,department from employee1 where firstname not in (select firstn
 
 
 -- Subqueries: query inside another query. Asking for extra info from main query(inner query exceutes then outer)
+select * from employee1
 
 
 
