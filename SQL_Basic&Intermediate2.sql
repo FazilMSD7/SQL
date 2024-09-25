@@ -39,22 +39,23 @@ on products.productCode = `order details`.productCode;
 select products.productLine as p, `order details`.quantityOrdered as o, products.quantityInStock as q
 from classic.products cross join classic.`order details` on products.productCode = `order details`.productCode;
 
+
 -- Set Operators : allows to combine results from queries
 -- Union : Combines results from queries but removes duplicates
-select FirstName,Department from employee1 union select FirstName,Department from employees2;
+select FirstName,Department from employees.employee1 union select FirstName,Department from employees.employees2;
 
 -- Union all: Combines results from queries and keeps duplicates
-select FirstName,Department from employee1 union all select FirstName,Department from employees2;
+select FirstName,Department from employees.employee1 union all select FirstName,Department from employees.employees2;
 
 -- Intersect: Returns only same in both queries(can't use intersect directly in MySql)
-select FirstName,Department from employee1 intersect select FirstName,Department from employees2; 
+select FirstName,Department from employee1 intersect select FirstName,Department from employees.employees2; 
 -- instead use as where in-- 
-select FirstName,Department from employee1 where firstname in (select firstname from employees2);
+select FirstName,Department from employees.employee1 where firstname in (select firstname from employees.employees2);
 
 -- Except(or Minus): returns rows in 1st table that are not present in 2nd table(same we can't use Except in MySql)
 select FirstName,Department from employee1 except select FirstName,Department from employees2;
 
-select firstname,department from employee1 where firstname not in (select firstname from employees2);
+select firstname,department from employees.employee1 where firstname not in (select firstname from employees.employees2);
 
 
 -- Subqueries: query inside another query. Asking for extra info from main query(inner query exceutes then outer)
@@ -90,9 +91,7 @@ begin
 	select customerName from classicmodels.customers;
 end &&
 Delimiter ;
-
 call classicmodels.customers_name()
-
 
 Delimiter && 
 create procedure get_data()
@@ -102,10 +101,35 @@ end &&
 Delimiter ;
 call classicmodels.get_data()
 
+-- Stored procedures - has 3 types(in, out(@,into), inout(@,set))
+ -- in : set (in name dtype) - accepts parameters
+Delimiter && 
+create procedure get_limit(in var int)
+begin
+select * from  classicmodels.customers limit var;
+end &&
+Delimiter ;
+call classicmodels.get_limit(5)
  
+ -- out : extract (out name dtype), into name, select @name
+Delimiter &&
+ create procedure get_max_creditLimit(out var int)
+begin
+select max(creditLimit) into var from  classicmodels.customers;
+end &&
+Delimiter ;
+call classicmodels.get_max_creditLimit(@maxVal);
+select @maxVal;
+
+-- inout : set and get (into name dtype), set @name, select @name
+Delimiter &&
+ create procedure get_name(inout var int)
+begin
+select customerName from  classicmodels.customers where customerNumber = var;
+end &&
+Delimiter ;
+set @nam = 100 ;
+call classicmodels.get_name(@nam);
+select @nam;
 
 
-
-
-
- 
