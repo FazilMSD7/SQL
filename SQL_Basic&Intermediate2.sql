@@ -58,7 +58,51 @@ select firstname,department from employee1 where firstname not in (select firstn
 
 
 -- Subqueries: query inside another query. Asking for extra info from main query(inner query exceutes then outer)
-select * from employee1
+select * from classicmodels.customers;
+select avg(creditLimit) from classicmodels.customers;
+
+select customerName,creditLimit from classicmodels.customers where creditLimit > 66288;
+-- we need to use 2 sep. mtds to find customers above avg. cfeditLimit, instead use subquery
+
+select customerName,creditLimit from classicmodels.customers where creditLimit > 
+(select avg(creditLimit) from classicmodels.customers);
+
+-- using subquery in multiple tables(need to use table name for fetching : eg- employee1.FirstName...)
+select employee1.FirstName,employee1.EmployeeID from employees.employee1 where employee1.FirstName
+ in (select employees2.FirstName from employees.employees2);
+ 
+
+
+-- Views : Virtual table similar as Tables(above any query we can create view)
+create view count_of_country as
+select country,count(customerNumber) from classicmodels.customers group by country;
+
+create view customer_with_greaterCreditLimit_avg as
+select customerName,creditLimit from classicmodels.customers where creditLimit > 
+(select avg(creditLimit) from classicmodels.customers);
+
+
+
+-- Stored Procedures : Save and reuse query as function(Delimiter &&- create procedure(name)- begin- query -end && Delimiter)
+Delimiter &&
+create procedure customers_name()
+begin
+	select customerName from classicmodels.customers;
+end &&
+Delimiter ;
+
+call classicmodels.customers_name()
+
+
+Delimiter && 
+create procedure get_data()
+begin
+select * from  classicmodels.customers;
+end &&
+Delimiter ;
+call classicmodels.get_data()
+
+ 
 
 
 
